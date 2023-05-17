@@ -1,2 +1,2 @@
-# estrutura-dados
-Repositório para disciplina de Estrutura de Dados.
+# Data Structure
+Repository for data structure discipline.

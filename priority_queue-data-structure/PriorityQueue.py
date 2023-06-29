@@ -1,29 +1,33 @@
 class Node:
-    def __init__(self, item, priority):
+    def __init__(self, item):
         self.item = item
-        self.priority = priority
         self.next = None
 
 
 class PriorityQueue:
     def __init__(self):
         self.head = None
+        self.length = 0
+
 
     def is_empty(self):
         return self.head is None
 
-    def enqueue(self, item, priority):
-        new_node = Node(item, priority)
+    def length(self):
+        return self.length
 
-        if self.is_empty() or priority < self.head.priority:
-            new_node.next = self.head
+
+    def enqueue(self, data):
+        new_node = Node(data)
+        if self.is_empty():
             self.head = new_node
+            self.tail = new_node
         else:
-            current = self.head
-            while current.next is not None and priority >= current.next.priority:
-                current = current.next
-            new_node.next = current.next
-            current.next = new_node
+            self.tail.next = new_node
+            self.tail = new_node
+
+        self.length += 1    
+
 
     def dequeue(self):
         if self.is_empty():
@@ -31,17 +35,20 @@ class PriorityQueue:
 
         item = self.head.item
         self.head = self.head.next
+        self.length -= 1
         return item
+
 
     def peek(self):
         if self.is_empty():
             return None
         return self.head.item
 
+
     def __str__(self):
         current = self.head
         queue_str = ""
         while current is not None:
-            queue_str += f"({current.item}, {current.priority}) "
+            queue_str += f"({current.item}) "
             current = current.next
         return queue_str
